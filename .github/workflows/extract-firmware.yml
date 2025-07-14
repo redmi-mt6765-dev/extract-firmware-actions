@@ -13,11 +13,11 @@ env:
   USER_GITHUB_TOKEN: ${{ secrets.USER_GITHUB_TOKEN }}
   USER_GITHUB_ORG: ${{ secrets.USER_GITHUB_ORG }}
   # Telegram
-  TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
-  TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+  # TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+  # TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
   # GitLab
-  GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
-  GITLAB_GROUP: ${{ secrets.GITLAB_GROUP }}
+  # GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+  # GITLAB_GROUP: ${{ secrets.GITLAB_GROUP }}
 
 jobs:
   dump:
@@ -46,17 +46,17 @@ jobs:
           cd dump
           echo "${USER_GITHUB_TOKEN}" > .github_token
           echo "${USER_GITHUB_ORG}" > .github_orgname
-          echo "${GITLAB_TOKEN}" > .gitlab_token
-          echo "${GITLAB_GROUP}" > .gitlab_group
-          echo "${TG_BOT_TOKEN}" > .tg_token
-          echo "${TG_CHAT_ID}" > .tg_chat
+          # echo "${GITLAB_TOKEN}" > .gitlab_token
+          # echo "${GITLAB_GROUP}" > .gitlab_group
+          # echo "${TG_BOT_TOKEN}" > .tg_token
+          # echo "${TG_CHAT_ID}" > .tg_chat
         env:
           USER_GITHUB_TOKEN: ${{ secrets.USER_GITHUB_TOKEN }}
           USER_GITHUB_ORG: ${{ secrets.USER_GITHUB_ORG }}
-          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
-          GITLAB_GROUP: ${{ secrets.GITLAB_GROUP }}
-          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
-          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+          # GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+          # GITLAB_GROUP: ${{ secrets.GITLAB_GROUP }}
+          # TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          # TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
 
       - name: Dump Firmware
         run: |
