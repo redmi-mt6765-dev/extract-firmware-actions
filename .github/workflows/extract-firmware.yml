@@ -1,0 +1,64 @@
+name: extract firmware
+
+on:
+  workflow_dispatch:
+    inputs:
+      target-url:
+        description: 'Direct download URL of firmware.'
+        required: true
+        type: string
+
+env:
+  # GitHub
+  USER_GITHUB_TOKEN: ${{ secrets.USER_GITHUB_TOKEN }}
+  USER_GITHUB_ORG: ${{ secrets.USER_GITHUB_ORG }}
+  # Telegram
+  TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+  TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+  # GitLab
+  GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+  GITLAB_GROUP: ${{ secrets.GITLAB_GROUP }}
+
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: $HOME
+
+    steps:
+      - name: Checkout DumprX Repo
+        run: |
+          git clone --single-branch --branch main \
+          https://x-access-token:${{ secrets.USER_GITHUB_TOKEN }}@github.com/DumprX/DumprX.git dump
+
+      - name: Set up DumprX Environment
+        run: |
+          cd dump
+          ls -la
+          pwd
+          ./setup.sh
+
+      - name: Prepare Secrets for Dumper
+        run: |
+          cd dump
+          echo "${USER_GITHUB_TOKEN}" > .github_token
+          echo "${USER_GITHUB_ORG}" > .github_orgname
+          echo "${GITLAB_TOKEN}" > .gitlab_token
+          echo "${GITLAB_GROUP}" > .gitlab_group
+          echo "${TG_BOT_TOKEN}" > .tg_token
+          echo "${TG_CHAT_ID}" > .tg_chat
+        env:
+          USER_GITHUB_TOKEN: ${{ secrets.USER_GITHUB_TOKEN }}
+          USER_GITHUB_ORG: ${{ secrets.USER_GITHUB_ORG }}
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+          GITLAB_GROUP: ${{ secrets.GITLAB_GROUP }}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+
+      - name: Dump Firmware
+        run: |
+          cd dump
+          ./dumper.sh "${{ github.event.inputs.target-url }}"
