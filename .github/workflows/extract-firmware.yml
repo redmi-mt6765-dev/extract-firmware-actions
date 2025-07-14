@@ -26,7 +26,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: $HOME
+        working-directory: /home/runner
 
     steps:
       - name: Checkout DumprX Repo
