@@ -61,6 +61,6 @@ jobs:
       - name: Dump Firmware
         run: |
           cd dump
-          git config user.email "redmi-mt6765-dev@github.com"
-          git config user.name "redmi-mt6765-dev"
+          git config --global user.email "redmi-mt6765-dev@github.com"
+          git config --global user.name "redmi-mt6765-dev"
           ./dumper.sh "${{ github.event.inputs.target-url }}"
