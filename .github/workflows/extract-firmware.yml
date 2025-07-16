@@ -29,7 +29,7 @@ jobs:
         working-directory: /home/runner
 
     steps:
-      - name: Checkout DumprX Repo
+      - name: Clone DumprX Repo
         run: |
           git clone --single-branch --branch main \
           https://x-access-token:${{ secrets.USER_GITHUB_TOKEN }}@github.com/DumprX/DumprX.git dump
